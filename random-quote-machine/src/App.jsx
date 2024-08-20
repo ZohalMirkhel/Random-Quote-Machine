@@ -14,11 +14,24 @@ const categories = [
   'life', 'love', 'marriage', 'medical', 'men', 'mom', 'money', 'morning', 'movies', 'success'
 ];
 
+const colors = [
+  '#FFEBEE',
+  '#FCE4EC',
+  '#F3E5F5', 
+  '#EDE7F6',
+  '#E1F5FE',
+  '#E0F2F1',
+  '#E8F5E9',
+  '#F9FBE7',
+  '#FFF9C4',
+];
+
 const App = () => {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('inspirational');
+  const [bgColor, setBgColor] = useState('#FFFFFF');
 
   const fetchQuote = async () => {
     try {
@@ -35,11 +48,13 @@ const App = () => {
         const randomQuote = data[0];
         setQuote(randomQuote.quote);
         setAuthor(randomQuote.author || 'Unknown');
+        setBgColor(colors[Math.floor(Math.random() * colors.length)]);
       }
     } catch (error) {
       console.error('Error fetching the quote:', error);
       setQuote('Oops! Something went wrong.');
       setAuthor('');
+      setBgColor('#FFFFFF');
     }
   };
 
@@ -88,8 +103,8 @@ const App = () => {
           maxWidth: '600px',
           margin: '0 auto',
           padding: '40px',
-          boxShadow: '10px 10px 15px rgba(0, 0, 0, 0.9)',
-          backgroundColor: 'rgba(255, 255, 255, 0.6)',
+          boxShadow: '0px 0px 20px rgba(0, 0, 0, 3)',
+          backgroundColor: `${bgColor}80`,
         }}
       >
         <p id="text" className="text-xl font-semibold mb-4">{quote}</p>
