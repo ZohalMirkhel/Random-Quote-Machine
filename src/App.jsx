@@ -32,7 +32,6 @@ const App = () => {
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('inspirational');
   const [bgColor, setBgColor] = useState('#FFFFFF');
-
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchQuote = async () => {
@@ -70,8 +69,10 @@ const App = () => {
           Authorization: PEXELS_API_KEY,
         },
       });
-      if (response.data.photos.length > 0) {
-        setImage(response.data.photos[0].src.large2x);
+      const photos = response.data.photos;
+      if (photos.length > 0) {
+        const randomImage = photos[Math.floor(Math.random() * photos.length)];
+        setImage(randomImage.src.large2x);
       }
     } catch (error) {
       console.error('Error fetching the image:', error);
