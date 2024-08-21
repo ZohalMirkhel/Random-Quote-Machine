@@ -33,6 +33,8 @@ const App = () => {
   const [category, setCategory] = useState('inspirational');
   const [bgColor, setBgColor] = useState('#FFFFFF');
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const fetchQuote = async () => {
     try {
       const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=${category}`, {
@@ -49,27 +51,27 @@ const App = () => {
         setQuote(randomQuote.quote);
         setAuthor(randomQuote.author || 'Unknown');
         setBgColor(colors[Math.floor(Math.random() * colors.length)]);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error('Error fetching the quote:', error);
       setQuote('Oops! Something went wrong.');
       setAuthor('');
       setBgColor('#FFFFFF');
+      setIsLoading(false);
     }
   };
 
   const fetchImage = async () => {
     try {
       const response = await axios.get('https://api.pexels.com/v1/search', {
-        params: { query: category, per_page: 10 },
+        params: { query: category, per_page: 30 },
         headers: {
           Authorization: PEXELS_API_KEY,
         },
       });
-      const photos = response.data.photos;
-      if (photos.length > 0) {
-        const randomImage = photos[Math.floor(Math.random() * photos.length)];
-        setImage(randomImage.src.large2x);
+      if (response.data.photos.length > 0) {
+        setImage(response.data.photos[0].src.large2x);
       }
     } catch (error) {
       console.error('Error fetching the image:', error);
@@ -109,6 +111,9 @@ const App = () => {
           backgroundColor: `${bgColor}80`,
         }}
       >
+
+        {!isLoading && (
+          <>
         <p id="text" className="text-xl font-semibold mb-4">{quote}</p>
         <p id="author" className="mb-6">- {author}</p>
         <div className="flex justify-center space-x-4">
@@ -143,6 +148,8 @@ const App = () => {
             Tweet
           </a>
         </div>
+        </>
+        )}
       </div>
     </div>
   );
