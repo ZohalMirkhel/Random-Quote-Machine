@@ -61,13 +61,15 @@ const App = () => {
   const fetchImage = async () => {
     try {
       const response = await axios.get('https://api.pexels.com/v1/search', {
-        params: { query: category, per_page: 1 },
+        params: { query: category, per_page: 10 },
         headers: {
           Authorization: PEXELS_API_KEY,
         },
       });
-      if (response.data.photos.length > 0) {
-        setImage(response.data.photos[0].src.large2x);
+      const photos = response.data.photos;
+      if (photos.length > 0) {
+        const randomImage = photos[Math.floor(Math.random() * photos.length)];
+        setImage(randomImage.src.large2x);
       }
     } catch (error) {
       console.error('Error fetching the image:', error);
