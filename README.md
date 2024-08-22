@@ -28,7 +28,7 @@ You can view a live demo of the project [here](https://quote-machine--quote-mach
 
 ## Installation
 
-To run this project locally, follow these steps:
+To run this project locally, follow these steps :
 
 1. **Clone the repository**:
    ```bash
