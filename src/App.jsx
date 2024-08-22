@@ -87,6 +87,7 @@ const App = () => {
   
     fetchData();
   }, [category]);
+  
 
   const handleNewQuote = () => {
     fetchQuote();
