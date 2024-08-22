@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const PEXELS_API_KEY = 'fSYzmP2T8BtzMMXnQsRm2zwqE2RB2LNBoJ4BIjgY5rWu18hamm2AzWwo';
@@ -34,7 +34,7 @@ const App = () => {
   const [bgColor, setBgColor] = useState('#FFFFFF');
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchQuote = async () => {
+  const fetchQuote = useCallback(async () => {
     try {
       const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=${category}`, {
         headers: {
@@ -59,9 +59,9 @@ const App = () => {
       setBgColor('#FFFFFF');
       setIsLoading(false);
     }
-  };
+  }, [category]);
 
-  const fetchImage = async () => {
+  const fetchImage = useCallback(async () => {
     try {
       const response = await axios.get('https://api.pexels.com/v1/search', {
         params: { query: category, per_page: 30 },
@@ -77,7 +77,7 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching the image:', error);
     }
-  };
+  }, [category]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +86,7 @@ const App = () => {
     };
   
     fetchData();
-  }, [category]);
+  }, [fetchQuote, fetchImage]);
   
 
   const handleNewQuote = () => {
