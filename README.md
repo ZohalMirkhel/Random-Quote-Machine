@@ -23,7 +23,7 @@ This is a React-based Random Quote Machine that displays a random quote from var
 ## Live Demo
 
 ![alt text](image.png)
-You can view a live demo of the project [here](https://zohalmirkhel.github.io/Personal_Portfolio/)
+You can view a live demo of the project [here](https://quote-machine--quote-machine-p.netlify.app/)
 
 
 ## Installation
