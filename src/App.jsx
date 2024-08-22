@@ -80,8 +80,12 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchQuote();
-    fetchImage();
+    const fetchData = async () => {
+      await fetchQuote();
+      await fetchImage();
+    };
+  
+    fetchData();
   }, [category]);
 
   const handleNewQuote = () => {
